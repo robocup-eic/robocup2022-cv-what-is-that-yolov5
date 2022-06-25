@@ -8,6 +8,7 @@ class CustomSocket :
 	def __init__(self,host,port) :
 		self.host = host
 		self.port = port
+		self.SPLITTER = b"CHAMPANDCAPTAIN"
 		self.sock = socket.socket()
 		self.isServer = False
 
@@ -68,6 +69,18 @@ class CustomSocket :
 		result = result.decode('utf-8')
 		return json.loads(result)
 
+	def register(self, image, name):
+		command = b'register'+self.SPLITTER
+		image = image[:,:,::-1].tobytes()
+		name = self.SPLITTER + bytes(name, 'utf-8')
+		self.sendMsg(self.sock, command + image + name)
+		
+	def detect(self, image):
+		command = b'detect'+self.SPLITTER
+		image = image[:,:,::-1].tobytes()
+		self.sendMsg(self.sock, command + image )
+		
+
 def main() :
 
 	server = CustomSocket(socket.gethostname(),10000)
@@ -84,4 +97,3 @@ def main() :
 
 if __name__ == '__main__' :
 	main()	
-
