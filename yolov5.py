@@ -21,9 +21,9 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))
 
 # path
 CONFIG_PATH = 'config/'
-WEIGHTS_PATH = 'yolov5s.pt'
+WEIGHTS_PATH = 'weight_object.pt'
 NAMES_PATH = CONFIG_PATH + 'coco.names'
-DEVICE = "cpu"
+DEVICE = "0"
 CFG_PATH = CONFIG_PATH + 'yolor_p6.cfg'
 IMAGE_SIZE = 640
 

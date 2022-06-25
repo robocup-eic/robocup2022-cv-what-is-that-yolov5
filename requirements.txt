@@ -1,7 +1,6 @@
 # pip install -r requirements.txt
 
 # Base ----------------------------------------
-numpy==1.22.1
 opencv-contrib-python==4.5.5.62
 opencv-python==4.5.5.62
 Pillow>=7.1.2

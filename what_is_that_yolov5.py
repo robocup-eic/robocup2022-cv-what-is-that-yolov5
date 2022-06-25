@@ -1,9 +1,15 @@
-from yolov5 import ObjectDetection
-from hand_tracking_module.hand_tracking import HandTracking
+import socket
+import json
+
 import torch
 import numpy as np
 import mediapipe as mp
 import cv2
+
+from custom_socket import CustomSocket
+from yolov5 import ObjectDetection
+from hand_tracking_module.hand_tracking import HandTracking
+
 
 mp_hands = mp.solutions.hands
 
@@ -19,6 +25,8 @@ class WhatIsThat:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = cv2.flip(image, 1)
         image.flags.writeable = False
+
+        
 
         # hands detection
         hands_results = self.HT.track(image)
@@ -44,26 +52,41 @@ class WhatIsThat:
 
         self.HT.draw_boxes(formatted_bbox)
 
-        # print(obj_list)
-
-        cv2.imshow('result image', image)
-        cv2.waitKey()
-
+        print(obj_list)
         return obj_list
 
 
 def main():
+    HOST = socket.gethostname()
+    PORT = 10002
+
     # init model
     WID = WhatIsThat()
 
-    # load img
-    img_test = cv2.imread('test_pics/test2.jpg')
+    server = CustomSocket(HOST, PORT)
+    server.startServer()
 
-    # feed img to model
-    i_see = WID.what_is_that(img_test)
-
-    print(i_see)
-
+    while True :
+        conn, addr = server.sock.accept()
+        print("Client connected from",addr)
+        while True :
+            try :
+                data = server.recvMsg(conn)
+                # print(data)
+                img = np.frombuffer(data,dtype=np.uint8).reshape(720,1280,3)
+                with torch.no_grad():
+                    # feed img to model
+                    results = WID.what_is_that(img)
+                what_is_that = []
+                for result in results :
+                    what_is_that.append((result))
+                res = {"what_is_that" : what_is_that}
+                print(res)
+                server.sendMsg(conn,json.dumps(res))
+            except Exception as e :
+                print(e)
+                print("Connection Closed")
+                break
 
 if __name__ == '__main__':
     main()
