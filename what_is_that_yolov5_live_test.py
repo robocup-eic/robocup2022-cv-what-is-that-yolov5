@@ -18,17 +18,18 @@ class WhatIsThat:
     def what_is_that(self, img):
 
         image = img.copy()
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        
         image = cv2.flip(image, 1)
         image.flags.writeable = False
 
         # hands detection
+	image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         hands_results = self.HT.track(image)
+	image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
         bbox_list = self.OD.get_bbox(image)
         formatted_bbox = self.OD.format_bbox(bbox_list)
 
         image.flags.writeable = True
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         self.HT.read_results(image, hands_results)
 
