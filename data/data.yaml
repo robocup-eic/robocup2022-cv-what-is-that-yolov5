@@ -1,0 +1,4 @@
+train: data_output/train/images
+val: data_output/valid/images
+nc: 15
+names: ['banana', 'ice_tea', 'water', 'corn_flakes', 'bubble_tea', 'pockys', 'pringles', 'tuna_can', 'tonic', 'coke', 'strawberry', 'apple', 'orange', 'milk', 'peach']

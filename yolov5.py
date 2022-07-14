@@ -21,7 +21,7 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))
 
 # path
 CONFIG_PATH = 'config/'
-WEIGHTS_PATH = 'weight_object.pt'
+WEIGHTS_PATH = 'custom_object_weight.pt'
 NAMES_PATH = CONFIG_PATH + 'coco.names'
 DEVICE = "0"
 CFG_PATH = CONFIG_PATH + 'yolor_p6.cfg'
@@ -32,7 +32,7 @@ class ObjectDetection:
 
     def __init__(self,
                  weights=WEIGHTS_PATH,
-                 data=ROOT / 'data/coco128.yaml',  # dataset
+                 data=ROOT / 'data/data.yaml',  # dataset
                  device=DEVICE,
                  half=False,
                  hide_labels=False,
