@@ -15,10 +15,11 @@ $ pip install -r requirements_localtest.txt
 ```
 
 ## Weight
+Download weight from here [LINK TO DRIVE](https://drive.google.com/drive/folders/1Z0Ky7vBMpCGTiF4d7fLzUxV4FYrqVKWB?usp=sharing)
 You can change weight.pt by put a new weight in project folder and change a parameter in yolov5.py
 - WEIGHTS_PATH = 'custom_object_weight.pt'
 
 
-## Weight
+## .yaml
 You can change data.yaml by put a new .yaml in data folder and change a parameter in yolov5.py
 - data=ROOT / 'data/data.yaml'
