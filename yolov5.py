@@ -7,11 +7,19 @@ import socket
 import sys
 import cv2
 import numpy as np
+# from models.common import DetectMultiBackend
+# from utils.augmentations import letterbox
+# from utils.general import non_max_suppression, scale_coords
+# from utils.plots import Annotator, colors
+# from utils.torch_utils import select_device, time_sync
+
 from models.common import DetectMultiBackend
-from utils.augmentations import letterbox
-from utils.general import non_max_suppression, scale_coords
-from utils.plots import Annotator, colors
-from utils.torch_utils import select_device, time_sync
+from utils.dataloaders import IMG_FORMATS, VID_FORMATS, LoadImages, LoadScreenshots, LoadStreams
+from utils.general import (LOGGER, Profile, check_file, check_img_size, check_imshow, check_requirements, colorstr, cv2,
+                           increment_path, non_max_suppression, print_args, scale_boxes, strip_optimizer, xyxy2xywh)
+from utils.plots import Annotator, colors, save_one_box
+from utils.torch_utils import select_device, smart_inference_mode
+
 import matplotlib.pyplot as plt
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
@@ -21,9 +29,9 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))
 
 # path
 CONFIG_PATH = 'config/'
-WEIGHTS_PATH = 'custom_object_weight.pt'
+WEIGHTS_PATH = 'weights/yolov5l'
 NAMES_PATH = CONFIG_PATH + 'coco.names'
-DEVICE = "0"
+DEVICE = 0
 CFG_PATH = CONFIG_PATH + 'yolor_p6.cfg'
 IMAGE_SIZE = 640
 
@@ -144,7 +152,7 @@ class ObjectDetection:
         dt[1] += t3 - t2
 
         # NMS
-        pred = non_max_suppression(pred, conf_thres=0.25, iou_thres=0.45,
+        pred = non_max_suppression(pred, conf_thres=0.5, iou_thres=0.45,
                                    classes=None, agnostic=False, max_det=1000)
         dt[2] += time_sync() - t3
 

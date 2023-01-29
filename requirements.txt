@@ -5,8 +5,8 @@ opencv-contrib-python==4.5.5.62
 opencv-python==4.5.5.62
 Pillow>=7.1.2
 requests>=2.23.0
-torch>=1.7.0
-torchvision>=0.8.1
+# torch>=1.7.0
+# torchvision>=0.8.1
 mediapipe>=0.8.9.1
 protobuf==3.19.4
 matplotlib==3.5.1

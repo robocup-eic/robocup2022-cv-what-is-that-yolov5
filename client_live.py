@@ -5,7 +5,7 @@ import time
 from custom_socket import CustomSocket
 import json
 
-
+idx = input('Cam index: ')
 
 host = socket.gethostname()
 port = 10002
@@ -13,7 +13,7 @@ port = 10002
 c = CustomSocket(host,port)
 c.clientConnect()
 
-cap = cv2.VideoCapture(2)
+cap = cv2.VideoCapture(int(idx))
 cap.set(4,720)
 cap.set(3,1280)
 

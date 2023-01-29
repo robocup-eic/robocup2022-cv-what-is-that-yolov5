@@ -23,9 +23,9 @@ class WhatIsThat:
         image.flags.writeable = False
 
         # hands detection
-	image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         hands_results = self.HT.track(image)
-	image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
         bbox_list = self.OD.get_bbox(image)
         formatted_bbox = self.OD.format_bbox(bbox_list)
 
@@ -65,7 +65,7 @@ def main():
     # init model
     WID = WhatIsThat()
 
-    cap = cv2.VideoCapture(2)
+    cap = cv2.VideoCapture(-1)
 
 
 
